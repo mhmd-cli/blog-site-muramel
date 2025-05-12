@@ -1,4 +1,3 @@
-// resources/js/Pages/Posts/Show.jsx
 import React from 'react';
 import { Head, Link } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
@@ -7,13 +6,16 @@ import { CalendarIcon, ClockIcon, ArrowLeftIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 export default function Show({ post, auth }) {
+  if (!post) {
+    return <div>Post not found</div>;
+  }
+
   return (
-    <AuthenticatedLayout user={auth.user}>
+    <AuthenticatedLayout user={auth?.user || null}>
       <Head title={post.title} />
-      
       <div className="container py-8 px-4 sm:px-6 lg:px-8">
-        <Link 
-          href={route('posts.index')} 
+        <Link
+          href={route('posts.index')}
           className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 mb-6"
         >
           <ArrowLeftIcon className="h-4 w-4 mr-2" />
@@ -64,7 +66,6 @@ export default function Show({ post, auth }) {
 
           <CardContent className="pt-6">
             <h1 className="text-2xl sm:text-3xl font-bold mb-4">{post.title}</h1>
-            
             <div className="flex items-center gap-4 text-sm text-gray-600 mb-6">
               <span className="flex items-center">
                 <CalendarIcon className="h-4 w-4 mr-1" />
@@ -75,15 +76,12 @@ export default function Show({ post, auth }) {
                 {post.read_time} min read
               </span>
             </div>
-
-            <div className="prose max-w-none">
-              {post.body}
-            </div>
+            <div className="prose max-w-none">{post.body}</div>
           </CardContent>
 
           <CardFooter className="flex justify-between pt-6 border-t">
             {post.previous_post && (
-              <Link 
+              <Link
                 href={route('posts.show', { post: post.previous_post.slug })}
                 className="text-sm text-primary hover:underline flex items-center"
               >
@@ -91,9 +89,8 @@ export default function Show({ post, auth }) {
                 {post.previous_post.title}
               </Link>
             )}
-            
             {post.next_post && (
-              <Link 
+              <Link
                 href={route('posts.show', { post: post.next_post.slug })}
                 className="text-sm text-primary hover:underline flex items-center ml-auto"
               >

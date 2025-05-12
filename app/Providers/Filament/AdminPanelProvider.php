@@ -56,7 +56,7 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
-                Authenticate::class,
+                Authenticate::class . ':admin', // Add the 'admin' guard or role check
             ])
             ->resources([
                 UserResource::class, // ✅ Correct way to register a resource

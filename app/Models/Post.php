@@ -48,12 +48,10 @@ class Post extends Model
             return null;
         }
 
-        // Check if using S3 or local storage
         if (config('filesystems.default') === 's3') {
             return Storage::url($this->image);
         }
 
-        // For local storage
         $path = str_replace('public/', '', $this->image);
         return Storage::disk('public')->exists($path) 
             ? Storage::url($path)
@@ -68,6 +66,11 @@ class Post extends Model
         
         $wordCount = str_word_count(strip_tags($this->body));
         return max(1, ceil($wordCount / 200)); // At least 1 minute
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->published_at !== null && $this->published_at <= now();
     }
 
     public function scopePublished($query)
@@ -104,7 +107,7 @@ class Post extends Model
     {
         if (is_null($this->published_at)) {
             return null;
-    }
+        }
 
         return static::published()
             ->where('id', '!=', $this->id)
@@ -124,7 +127,7 @@ class Post extends Model
                 $post->excerpt = Str::limit(strip_tags($post->body), 150);
             }
 
-            if (!$post->published_at) {
+            if (!$post->published_at && app()->environment('production')) {
                 $post->published_at = now();
             }
         });

@@ -16,12 +16,6 @@ export default defineConfig({
             '@components': '/resources/js/components',
         },
     },
-    server: {
-        host: '127.0.0.1',
-        port: 5173,
-        fs: {
-            strict: false
-        },
-        historyApiFallback: true, // <-- this line ensures React routes work
-    }
+    // The server config is only for development. Omit this in production.
 });
+
