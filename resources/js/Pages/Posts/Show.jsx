@@ -1,17 +1,20 @@
 import React from 'react';
 import { Head, Link } from '@inertiajs/react';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+// import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import GuestLayout from '@/Layouts/GuestLayout';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { CalendarIcon, ClockIcon, ArrowLeftIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
-export default function Show({ post, auth }) {
+export default function Show({ post }) {
   if (!post) {
     return <div>Post not found</div>;
   }
 
   return (
-    <AuthenticatedLayout user={auth?.user || null}>
+    // <AuthenticatedLayout user={auth?.user || null}>
+    <GuestLayout>
+
       <Head title={post.title} />
       <div className="container py-8 px-4 sm:px-6 lg:px-8">
         <Link
@@ -101,6 +104,7 @@ export default function Show({ post, auth }) {
           </CardFooter>
         </Card>
       </div>
-    </AuthenticatedLayout>
+    </GuestLayout>
+    // </AuthenticatedLayout>
   );
 }

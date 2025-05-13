@@ -20,13 +20,13 @@ use App\Http\Controllers\CategoryController;
 // });
 
 Route::get('/', function () {
-    $data = [
-        'posts' => Post::with('category')->latest()->take(5)->get()->toArray(),
-        'categories' => Category::all()->toArray(),
-        'authUser' => auth()->user() ? auth()->user()->toArray() : null,
-    ];
+    // $data = [
+        // 'posts' => Post::with('category')->latest()->take(5)->get()->toArray(),
+        // 'categories' => Category::all()->toArray(),
+        // 'authUser' => auth()->user() ? auth()->user()->toArray() : null,
+    // ];
 
-    \Log::info('Home page data:', $data);
+    // \Log::info('Home page data:', $data);
 
     return Inertia::render('Home', [
         'posts' => Post::with('category')->latest()->take(5)->get()->toArray(),
