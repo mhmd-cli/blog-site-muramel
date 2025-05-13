@@ -25,7 +25,7 @@ export default function PostCard({ post }) {
                 loading="lazy"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = '/placeholder-post.jpg';
+                  e.target.src = 'https://placehold.co/400';
                 }}
               />
             ) : (

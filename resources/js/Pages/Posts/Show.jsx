@@ -42,7 +42,7 @@ export default function Show({ post, auth }) {
                 loading="lazy"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = '/placeholder-post.jpg';
+                  e.target.src = 'https://placehold.co/400';
                 }}
               />
             ) : (
